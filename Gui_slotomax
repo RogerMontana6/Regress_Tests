@@ -1,0 +1,80 @@
+import unittest
+import time
+import HTMLTestRunner
+import StringIO
+import sys
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+
+class in_game_action(unittest.TestCase):
+
+ 
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        print ("open browser")
+
+    def test_slotomx_open(self):
+        driver = self.driver
+        driver.get("http://snagovsky.fs.local/opt/")
+        print ("Load http://http://snagovsky.fs.local/opt/")
+        #self.assertIn("Slotomax", driver.title)
+        #print ("Check Page Name")
+        time.sleep(0.8)
+        #UI_Controls
+        #Here are list of Testomax controls
+        maxbet = driver.find_element_by_css_selector(".button-max-bet")
+        spin = driver.find_element_by_css_selector(".button-spin")
+        total_bet = driver.find_element_by_css_selector(".label-bet")
+        total_win = driver.find_element_by_css_selector(".label-spin-result")
+        balance = driver.find_element_by_css_selector(".label-balance")
+        deposit = driver.find_element_by_css_selector(".button-deposit")
+        lines = driver.find_element_by_css_selector(".button-change-lines")
+        bets = driver.find_element_by_css_selector(".button-line-bet")
+        support = driver.find_element_by_css_selector(".button-support")
+        pay_table = driver.find_element_by_css_selector(".button-paytable")
+        back = driver.find_element_by_css_selector(".button-go-back")
+        settings = driver.find_element_by_css_selector(".button-options")
+        play_for_r = driver.find_element_by_css_selector(".button-switch-currency")
+        lines_txt = driver.find_element_by_css_selector(".button-change-lines .label-value")
+        bet_txt = driver.find_element_by_css_selector(".button-line-bet .label-value")
+
+        #about_murka = driver.find_element_by_css_selector("li.about")
+        #about_beatble = driver.find_element_by_css_selector("Li.betable")
+        #faq = driver.find_element_by_css_selector("li.faq")
+        #Text = self.driver.find_element_by_tag_name('p').text
+        #elem = driver.find_element_by_name("q")
+        #elem.send_keys("selenium")
+        #elem.send_keys(Keys.RETURN)
+        #self.assertIn("Google", driver.title)
+        spin.click()
+        #texts = [
+        #"Slotomax would like to show you the bright world of slot machines",
+        #"About Murka",
+        #"About Betable",
+        #"F.A.Q. and support"]
+
+        #namess = [home, about_murka, about_beatble, faq]
+        
+        #for i in namess:
+        #    i.click()
+        #   print("click button ")
+            
+            
+                       
+
+    def tearDown(self):
+        self.driver.close()
+
+    
+if __name__ == '__main__':
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(in_game_action))
+    dateTimeStamp = time.strftime('%Y%m%d_%H_%M_%S')
+    buf = file("TestReport" + "_" + dateTimeStamp + ".html", 'wb')
+    runner = HTMLTestRunner.HTMLTestRunner(
+            stream=buf,
+            title='Test the Report',
+            description='Result of tests'
+            )
+    runner.run(suite)

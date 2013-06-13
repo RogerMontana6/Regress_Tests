@@ -1,0 +1,113 @@
+import unittest
+import time
+import HTMLTestRunner
+import StringIO
+import sys
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import NoSuchElementException
+
+class in_game_action(unittest.TestCase):
+
+ 
+    def setUp(self):
+        self.driver = webdriver.Firefox()
+        print ("open browser")
+
+    def test_slotomx_open(self):
+        driver = self.driver
+        driver.get("http://snagovsky.fs.local/opt/")
+        print ("Open URL Ok")
+        time.sleep(2)
+        
+        
+    def test_slotomx_elements_check(self):
+        driver = self.driver
+
+        driver.get("http://snagovsky.fs.local/opt/")
+
+        time.sleep(2)    
+        maxbet = driver.find_element_by_css_selector(".button-max-bet")
+        spin = driver.find_element_by_css_selector(".button-spin")
+        total_bet = driver.find_element_by_css_selector(".label-bet")
+        total_win = driver.find_element_by_css_selector(".label-spin-result")
+        balance = driver.find_element_by_css_selector(".label-balance .label-value").text
+        deposit = driver.find_element_by_css_selector(".button-deposit")
+        lines = driver.find_element_by_css_selector(".button-change-lines")
+        bets = driver.find_element_by_css_selector(".button-line-bet")
+        support = driver.find_element_by_css_selector(".button-support")
+        pay_table = driver.find_element_by_css_selector(".button-paytable")
+        back = driver.find_element_by_css_selector(".button-go-back")
+        settings = driver.find_element_by_css_selector(".button-options")
+        play_for_r = driver.find_element_by_css_selector(".button-switch-currency")
+        lines_txt = driver.find_element_by_css_selector(".button-change-lines .label-value").text
+        bet_txt = driver.find_element_by_css_selector(".button-line-bet .label-value").text
+         
+
+        print("elemnts are find OK")
+        #world =   driver.find_element_by_css_selector()
+        #Here a test steps
+        #worldname =[]
+        #Open World
+        #world.click()
+        #print("World"+worldname+"open")
+        #
+       
+        time.sleep(5)
+
+        settings.click()
+        print("settings Ok")
+
+        
+        #print("back click Ok")
+
+        #world.click()
+        print("World Open BUTTON back Ok")
+
+        
+        
+
+        
+
+
+        play_for_r.click()
+        print("play_for_r Ok")
+    def test_slotomx_spinner(self):
+        driver = self.driver
+        driver.get("http://snagovsky.fs.local/opt/")
+        time.sleep(5) 
+        maxbet = driver.find_element_by_css_selector(".button-max-bet")
+        spin = driver.find_element_by_css_selector(".button-spin")
+        total_bet = driver.find_element_by_css_selector(".label-bet")
+        total_win = driver.find_element_by_css_selector(".label-spin-result")
+        balance = driver.find_element_by_css_selector(".label-balance .label-value").text
+        lines = driver.find_element_by_css_selector(".button-change-lines")
+        bets = driver.find_element_by_css_selector(".button-line-bet")
+        lines_txt = driver.find_element_by_css_selector(".button-change-lines .label-value").text
+        bet_txt = driver.find_element_by_css_selector(".button-line-bet .label-value").text
+
+
+        i=0
+        while i<1:
+            lines.click()
+            bets.click()
+            print(lines_txt)
+            print(bet_txt)
+            spin.click()
+            print(balance)
+            
+    def tearDown(self):
+        self.driver.close()
+
+    
+if __name__ == '__main__':
+    suite = unittest.TestSuite()
+    suite.addTest(unittest.makeSuite(in_game_action))
+    dateTimeStamp = time.strftime('%Y%m%d_%H_%M_%S')
+    buf = file("TestReport" + "_" + dateTimeStamp + ".html", 'wb')
+    runner = HTMLTestRunner.HTMLTestRunner(
+            stream=buf,
+            title='Test the Report',
+            description='Result of tests'
+            )
+    runner.run(suite)
